@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div id="lancamento">
         <form class="p-4">
             <div id="radio"> 
                 <div class="form-check">
@@ -8,7 +9,7 @@
                         <b>Entrada</b>
                     </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check mx-3">
                     <input class="form-check-input" type="radio" name="exampleRadios" id="saida" value="option2">
                     <label class="form-check-label" for="saida" id="saida">
                         <b>Saída</b>
@@ -32,20 +33,41 @@
             </div>
             <button type="submit" class="btn btn-primary">Lançar</button>
         </form>
+        </div>
+        <ItemLancado tipo="entrada" :lancamento="{
+            valor: 100,
+            data: '01/01/2021',
+            descricao: 'Venda de fliperama'
+        }"/>
+
     </div>
 </template>
 
 <script>
+import ItemLancado from "./ItemLancado"
+
 export default {
-    name: "PainelLancamento"
+    name: "PainelLancamento",
+    components:{
+        ItemLancado
+    },
+    // data(){
+    //     lancamentos:[
+    //         {
+    //             valor       :123,
+    //             data        :'2021-03-23',
+    //             descricao   :'teste x' 
+    //         }
+    //     ],
+    // }
+
 }
 </script>
 
 <style scoped>
-    div{
+    #lancamento form{
         background-color: #fff;
         border-radius: 10px;
-        width: 40%;
     }
     #radio{
         display: flex;

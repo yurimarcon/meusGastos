@@ -6,9 +6,6 @@
       <PainelLancamento />
       <PainelResumo />
     </div>
-    <div id="itens">
-      <ItemLancado />
-    </div>
   </div>
 </template>
 
@@ -17,12 +14,11 @@ import Header from "./components/Header"
 import Banner from "./components/Banner"
 import PainelLancamento from "./components/PainelLancamento"
 import PainelResumo from "./components/PainelResumo"
-import ItemLancado from "./components/ItemLancado"
 
 export default {
   name: 'App',
   components: {
-    Header, Banner, PainelLancamento, PainelResumo, ItemLancado
+    Header, Banner, PainelLancamento, PainelResumo
   }
 }
 </script>
@@ -39,9 +35,5 @@ body{
   display: flex;
   padding: 2%;
   justify-content: space-evenly;
-}
-#itens{
-  display: flex;
-  margin-left: 5.5%;
 }
 </style>
