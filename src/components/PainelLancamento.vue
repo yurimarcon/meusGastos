@@ -5,13 +5,13 @@
                 <div class="p-4">
                     <div id="radio"> 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="entrada" value="true" @click="selecionaEntrada">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="entrada" value="entrada" @click="selecionaEntrada">
                             <label class="form-check-label" for="entada" id="entrada">
                                 <b>Entrada</b>
                             </label>
                         </div>
                         <div class="form-check mx-3">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="saida" value="option2" @click="selecionaSaida">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="saida" value="saida" checked @click="selecionaSaida">
                             <label class="form-check-label" for="saida" id="saida">
                                 <b>Saída</b>
                             </label>
@@ -38,20 +38,17 @@
 
         </div>
 
-        <div v-for="item in lancamentos" :key="item.valor">
-            <ItemLancado :lancamento="{
-                tipo: item.tipo,
-                valor: item.valor,
-                data: item.data,
-                descricao: item.descricao,
-                id: item.id
-            }" @removeItem="remove($event)" />
+        <div v-for="item in todosLancamentos" :key="item.id">
+            <ItemLancado :lancamento="item"
+            @removeItem="remove($event)" />
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ItemLancado from "./ItemLancado"
+
 
 export default {
     name: "PainelLancamento",
@@ -122,8 +119,8 @@ export default {
         selecionaSaida(){
             this.entrada = false;
         }
-    }
-    
+    },
+    computed: mapGetters(['todosLancamentos']),
 
 }
 </script>

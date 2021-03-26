@@ -3,7 +3,7 @@
         <div class="card-body">
             <div class="titleResumo">
                 <h1>Dinheiro em Caixa</h1>
-                <h3>R$0,00</h3>
+                <h3>R${{ dinheiroEmCaixa }}</h3>
             </div>
             <div class="grafico">
                 <canvas id="myChart"></canvas>
@@ -13,8 +13,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     name: "PainelLancamento",
+    computed: mapGetters(['dinheiroEmCaixa']),
 }
 </script>
 
