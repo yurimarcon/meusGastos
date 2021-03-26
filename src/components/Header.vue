@@ -14,9 +14,9 @@ export default {
 </script>
 
 <style scoped>
-div {
-    padding: 1%;     
+div { 
     display: flex;   
+    padding: 1% 0 0 130px;
 }
 
 img {
