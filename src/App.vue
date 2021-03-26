@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div >
     <Header />
     <Banner />
     <div id="paineis">
-      <PainelLancamento />
       <PainelResumo />
+      <PainelLancamento />
     </div>
   </div>
 </template>
@@ -30,10 +30,28 @@ body{
   margin: 0;
   background-color: #202225;
 }
-
 #paineis{
+  /* float: right; */
+  /* justify-content: right; */
+  flex-direction: row-reverse;
   display: flex;
   padding: 2%;
   justify-content: space-evenly;
+}
+.vermelho{
+    color: crimson;
+}
+.verde{
+    color: rgb(50, 151, 50);
+}
+
+@media screen and (max-width: 700px){
+  div{
+    max-width: 100%;
+  }
+  #paineis{
+    display: block;
+    padding: 2%;
+  }
 }
 </style>

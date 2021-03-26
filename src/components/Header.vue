@@ -30,4 +30,9 @@ span{
     text-transform: uppercase;
     color: #fff;
 }
+@media screen and (max-width: 700px){
+  div{
+    padding: 1% 0 0 20px;
+  }
+}
 </style>

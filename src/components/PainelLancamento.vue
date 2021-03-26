@@ -5,14 +5,14 @@
                 <div class="p-4">
                     <div id="radio"> 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="entrada" value="entrada" @click="selecionaEntrada">
-                            <label class="form-check-label" for="entada" id="entrada">
+                            <input class="form-check-input" type="radio" name="entrada" id="entrada" value="entrada" v-model="tipo" @click="selecionaEntrada">
+                            <label class="form-check-label verde" for="entada" id="entrada">
                                 <b>Entrada</b>
                             </label>
                         </div>
                         <div class="form-check mx-3">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="saida" value="saida" checked @click="selecionaSaida">
-                            <label class="form-check-label" for="saida" id="saida">
+                            <input class="form-check-input" type="radio" name="saida" id="saida" value="saida" v-model="tipo" @click="selecionaSaida">
+                            <label class="form-check-label vermelho" for="saida" id="saida">
                                 <b>Saída</b>
                             </label>
                         </div>
@@ -20,7 +20,7 @@
                     <div class="d-flex w-100">
                         <div class="form-group">
                             <label for="valor">Valor</label>
-                            <input type="number" class="form-control" v-model='valor'>
+                            <input type="number" min="0" step="0.01" class="form-control" v-model="valor">
                         </div>
                         <div class="form-group mx-5">
                             <label for="valor">Data</label>
@@ -46,42 +46,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import ItemLancado from "./ItemLancado"
-
+import Lancamentos from '../models/Lancamentos'
 
 export default {
     name: "PainelLancamento",
     data(){
         return {
             data: '2021-04-26',
-            entrada: true,
-            valor: 10,
+            tipo: 'saida',
+            valor: '',
             descricao: '',
-            lancamentos:[
-                {
-                    valor       :123,
-                    data        :"2021-03-23",
-                    descricao   :'teste x',
-                    tipo        :'entrada',
-                    id          : new Date().getTime() + 1
-                },
-                {
-                    valor       :124,
-                    data        :"2021-03-23",
-                    descricao   :'teste y',
-                    tipo        :'saida',
-                    id          : new Date().getTime() + 2
-                },
-                {
-                    valor       :125.02,
-                    data        :"2021-03-23",
-                    descricao   :'teste z', 
-                    tipo        :'entrada',
-                    id          : new Date().getTime() + 3
-                },
-            ]
-
         }
 
     },
@@ -89,23 +65,37 @@ export default {
         ItemLancado
     },
     methods:{
+        ...mapActions(['salvarLancamento','atualizaCaixa']),
         adicionaItem(){
-            
-            let tipoEntrada;
 
-            if(this.entrada){
-                tipoEntrada = 'entrada';
-            }else{
-                tipoEntrada = 'saida';
+            if(!this.valor)alert('Informe o valor a ser lançado');
+            if(!this.valor)alert('Informe o valor a ser lançado');
+            if(!this.data)alert('Informe a data do lançamento');
+            if(!this.descricao)alert('Informe uma descrição para o lançamento');
+
+            let data = new Date(this.data);
+            let valor1 = parseFloat(this.valor);
+
+            if(this.tipo == 'saida'){
+                valor1 = valor1 - (valor1*2);
             }
 
-            this.lancamentos.push({
-                valor       : parseFloat(this.valor),
-                data        : this.data,
-                descricao   : this.descricao, 
-                tipo        : tipoEntrada,
-                id          : new Date().getTime()
-            })
+            data = data.getDate() + '/' + (data.getMonth()+1) + '/' + data.getFullYear();
+
+            const lancamento = new Lancamentos(
+                this.tipo,
+                valor1,
+                data,
+                this.descricao, 
+                new Date().getTime()
+            );
+
+            this.salvarLancamento(lancamento);
+            this.atualizaCaixa();
+            
+            this.valor = '';
+            this.descricao = '';
+
         },
         remove($event){
             let id = $event.id
@@ -114,10 +104,10 @@ export default {
             });
         },
         selecionaEntrada(){
-            this.entrada = true;
+            this.entrada = 'entrada';
         },
         selecionaSaida(){
-            this.entrada = false;
+            this.entrada = 'saida';
         }
     },
     computed: mapGetters(['todosLancamentos']),
@@ -128,12 +118,6 @@ export default {
 <style scoped>
     #radio{
         display: flex;
-    }
-    #entrada{
-        color: green;
-    }
-    #saida{
-        color: red;
     }
     button{
         margin: 10px;

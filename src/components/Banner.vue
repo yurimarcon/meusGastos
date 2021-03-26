@@ -20,5 +20,13 @@ div {
     font-size: 200%;
     font-family: 'Roboto Condensed', sans-serif;
 }
+@media screen and (max-width: 700px){
+  div{
+    height: 200px;
+    color: #fff;
+    padding: 40px 10px 10px 20px;
+    font-size: 150%;
+  }
+}
 
 </style>

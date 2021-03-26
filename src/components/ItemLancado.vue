@@ -1,24 +1,13 @@
 <template>
-    <!-- <div class="d-flex justify-content-around">
-        <div >
-            <button class="btn btn-danger">Remover</button>
-        </div>
-        <div id='dados'>
-            <span class="valor">R${{ lancamento.valor }}</span>
-            <span>{{ lancamento.data }}</span>
-            <span>{{ lancamento.descricao }}</span>
-        </div>
-    </div> -->
     <div class="card">
         <div class="card-body row">
             <div >
-                <button @click="removeItem($event)" class="btn btn-danger ml-5 my-auto">Remover</button>
+                <button @click="removeItem($event)" class="btn btn-danger ml-5 my-auto"><i class="bi bi-trash"></i> Remover</button>
             </div>
             <div id='dados' class="my-auto">
-                <span v-if="lancamento.tipo === 'entrada'" class="valor entrada"><b>R${{ lancamento.valor.toLocaleString('pt-br', {minimumFractionDigits: 2}) }}</b></span>
-                <span v-else-if="lancamento.tipo === 'saida'" class="valor saida"><b>R${{ lancamento.valor.toLocaleString('pt-br', {minimumFractionDigits: 2})}}</b></span>
-                <span>{{ lancamento.data }}</span>
-                <span>{{ lancamento.descricao }}</span>
+                <span :class="tipoEnradaSaida == 'entrada' ?  'verde valor' : 'vermelho valor'"><b>R${{ lancamento.valor.toLocaleString('pt-br', {minimumFractionDigits: 2}) }}</b></span>
+                <span >{{ lancamento.descricao }}</span>
+                <span class="text-muted">{{ lancamento.data }}</span>
                 <span v-show="false" >{{ lancamento.id }}</span>
             </div>
         </div>
@@ -26,16 +15,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
     name: "ItemLancado",
+    data(){
+        return{
+            tipoEnradaSaida: this.lancamento.tipo
+        }
+
+    },
     props:{
         tipo: String,
         lancamento: Object
     },
-    methods:{
+    methods: {
+        ...mapActions(['deletarLancamento','atualizaCaixa']),
         removeItem(){
-            // console.log(this.lancamento.id)
-            this.$emit('removeItem', {id: this.lancamento.id})
+            this.deletarLancamento(this.lancamento.id);
+            this.atualizaCaixa();
         }
     }
 }
@@ -48,13 +46,11 @@ export default {
     }
     #dados span {
         display: block;
+        text-align: right;
         padding: 0 50px 0 0;
     }
-    .entrada{
-        color: green;
-    }
-    .saida{
-        color:orangered;
+    .valor{
+        font-size: 2rem;
     }
 
 </style>
