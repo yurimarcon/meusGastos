@@ -53,39 +53,45 @@ export default {
     },
     methods:{
         renderizaGrafico(){
-            let lancamentos = [...this.todosLancamentos];
-            lancamentos.sort((a, b)=> new Date(a.data) < new Date(b.data));
-            lancamentos.reverse();
 
-            let valorEmCaixa = 0;
-            let datas = [];
-            let valores = [];
+            const grafico = document.getElementById('grafico');
 
-            datas = lancamentos.map( lancamento =>{
-                valorEmCaixa += lancamento.valor;
-                valores.push(valorEmCaixa)
-                return lancamento.data;
-            })
+            if(grafico){
 
-            const corCurva = valorEmCaixa > 0 ? 'blue' : 'red';
-            const config = {
-                type: "line",
-                data:{
-                    labels: datas,
-                    datasets:[
-                        {
-                            label: "Comportamento do seu dinheiro",
-                            borderColor: corCurva,
-                            backgroundColor: corCurva,
-                            data: valores,
-                            fill: false
-                        }
-                    ]
-                },
-                options: this.opcoesGrafico,
-            };
-            const contexto = document.getElementById('grafico').getContext('2d');
-            new Chart(contexto, config);
+                let lancamentos = [...this.todosLancamentos];
+                lancamentos.sort((a, b)=> new Date(a.data) < new Date(b.data));
+                lancamentos.reverse();
+    
+                let valorEmCaixa = 0;
+                let datas = [];
+                let valores = [];
+    
+                datas = lancamentos.map( lancamento =>{
+                    valorEmCaixa += lancamento.valor;
+                    valores.push(valorEmCaixa)
+                    return lancamento.data;
+                })
+    
+                const corCurva = valorEmCaixa > 0 ? 'blue' : 'red';
+                const config = {
+                    type: "line",
+                    data:{
+                        labels: datas,
+                        datasets:[
+                            {
+                                label: "Comportamento do seu dinheiro",
+                                borderColor: corCurva,
+                                backgroundColor: corCurva,
+                                data: valores,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: this.opcoesGrafico,
+                };
+                const contexto = document.getElementById('grafico').getContext('2d');
+                new Chart(contexto, config);
+            }
         }
     },
     mounted(){

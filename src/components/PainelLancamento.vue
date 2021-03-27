@@ -68,10 +68,12 @@ export default {
         ...mapActions(['salvarLancamento','atualizaCaixa']),
         adicionaItem(){
 
-            if(!this.valor)alert('Informe o valor a ser lançado');
-            if(!this.valor)alert('Informe o valor a ser lançado');
-            if(!this.data)alert('Informe a data do lançamento');
-            if(!this.descricao)alert('Informe uma descrição para o lançamento');
+            if(!this.valor || !this.data || !this.descricao){
+                if(!this.valor)alert('Informe o valor a ser lançado');
+                if(!this.data)alert('Informe a data do lançamento');
+                if(!this.descricao)alert('Informe uma descrição para o lançamento');
+                return;
+            }
 
             let data = new Date(this.data);
             let valor1 = parseFloat(this.valor);

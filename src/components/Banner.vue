@@ -1,7 +1,7 @@
 <template>
     <div >
-        <h1>Cuidando do seu dinheiro</h1>
-        <p>Você alcança seus planos muito antes do que você imagina!!!</p>
+        <h1>Vue.js</h1>
+        <p>Ajuda você a cuidar do seu dinheio!!!</p>
     </div>  
 </template>
 
