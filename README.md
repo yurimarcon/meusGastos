@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# meusGastos //
-=======
 # Meus Gastos
 
 ![image](https://user-images.githubusercontent.com/44410208/112705170-52bae100-8e7c-11eb-8672-5568fa3e41ab.png)
@@ -22,4 +19,3 @@ Concluíndo, esse projeto contempla diversas ferramentas dentro do Vue.js que po
 Recomendo o professor Sydney Sousa(https://github.com/sidneyroberto), que disponibilizou um curso totalmente grátis e pelo YouTube (https://www.youtube.com/watch?v=3L15dnvgFGY&list=PL370TvW48yBvqY5giX-iD8vnmN6vYr0Tt&index=1), então segue o link com o curso completo que vai explicar todos os conceitos utilizados nesse exercício de fixação.
 
 Obrigado até aqui! 🖖
->>>>>>> 4f7f08b74cd792d02ef26c06e134472fc8e44673
